@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Dettaglio Ordine";
+}
+
+<h1> Dettaglio Ordine </h1>
+<!-- DEFINISCO FORM CON HTML HELPER-->
+@using(Html.BeginForm("DettaglioOrdine","Home",FormMethod.Post)) {
+    <div class="text-danger">
+        @ViewBag.ErrorMessage
+        @Html.ValidationSummary()
+    </div>
+    <div class="text-warning">
+        @ViewBag.Message
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Codice Articolo
+        </div>
+        <div class="col-md-3">
+            Descrizione
+        </div>
+        <div class="col-md-3">
+            Qnta
+        </div>
+        <div class="col-md-3">
+            Azione
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-9">
+            <a href="ConfermaOrdine.html">>></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-offset-5">
+            <input type="submit" value="Aggiungi" />
+            <input type="submit" value="Annulla" />
+        </div>
+    </div>
+}
