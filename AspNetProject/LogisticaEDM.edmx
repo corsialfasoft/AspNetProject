@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="logisticaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="carrello">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codice_prodotto" Type="int" Nullable="false" />
+          <Property Name="qta" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="movimenti">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codice_prodotto" Type="int" />
+          <Property Name="segno" Type="int" Nullable="false" />
+          <Property Name="qta" Type="int" Nullable="false" />
+          <Property Name="id_ordine" Type="int" />
+          <Property Name="id_processo" Type="int" />
+        </EntityType>
+        <EntityType Name="ordini">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data_ordine" Type="date" Nullable="false" />
+          <Property Name="stato_ordine" Type="int" />
+        </EntityType>
+        <EntityType Name="prodotti">
+          <Key>
+            <PropertyRef Name="codice" />
+          </Key>
+          <Property Name="codice" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descrizione" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="prodottiOrdinati">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_ordine" Type="int" />
+          <Property Name="codice_prodotto" Type="int" />
+          <Property Name="qta" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="statiOrdine">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stato" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__movimenti__codic__276EDEB3">
+          <End Role="prodotti" Type="Self.prodotti" Multiplicity="0..1" />
+          <End Role="movimenti" Type="Self.movimenti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prodotti">
+              <PropertyRef Name="codice" />
+            </Principal>
+            <Dependent Role="movimenti">
+              <PropertyRef Name="codice_prodotto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ordini__stato_or__2C3393D0">
+          <End Role="statiOrdine" Type="Self.statiOrdine" Multiplicity="0..1" />
+          <End Role="ordini" Type="Self.ordini" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statiOrdine">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ordini">
+              <PropertyRef Name="stato_ordine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prodottiO__codic__300424B4">
+          <End Role="prodotti" Type="Self.prodotti" Multiplicity="0..1" />
+          <End Role="prodottiOrdinati" Type="Self.prodottiOrdinati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prodotti">
+              <PropertyRef Name="codice" />
+            </Principal>
+            <Dependent Role="prodottiOrdinati">
+              <PropertyRef Name="codice_prodotto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prodottiO__id_or__2F10007B">
+          <End Role="ordini" Type="Self.ordini" Multiplicity="0..1" />
+          <End Role="prodottiOrdinati" Type="Self.prodottiOrdinati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ordini">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prodottiOrdinati">
+              <PropertyRef Name="id_ordine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="logisticaModelStoreContainer">
+          <EntitySet Name="carrello" EntityType="Self.carrello" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="movimenti" EntityType="Self.movimenti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ordini" EntityType="Self.ordini" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prodotti" EntityType="Self.prodotti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prodottiOrdinati" EntityType="Self.prodottiOrdinati" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="statiOrdine" EntityType="Self.statiOrdine" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__movimenti__codic__276EDEB3" Association="Self.FK__movimenti__codic__276EDEB3">
+            <End Role="prodotti" EntitySet="prodotti" />
+            <End Role="movimenti" EntitySet="movimenti" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ordini__stato_or__2C3393D0" Association="Self.FK__ordini__stato_or__2C3393D0">
+            <End Role="statiOrdine" EntitySet="statiOrdine" />
+            <End Role="ordini" EntitySet="ordini" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prodottiO__codic__300424B4" Association="Self.FK__prodottiO__codic__300424B4">
+            <End Role="prodotti" EntitySet="prodotti" />
+            <End Role="prodottiOrdinati" EntitySet="prodottiOrdinati" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prodottiO__id_or__2F10007B" Association="Self.FK__prodottiO__id_or__2F10007B">
+            <End Role="ordini" EntitySet="ordini" />
+            <End Role="prodottiOrdinati" EntitySet="prodottiOrdinati" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="logisticaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="carrello">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codice_prodotto" Type="Int32" Nullable="false" />
+          <Property Name="qta" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="movimenti">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codice_prodotto" Type="Int32" />
+          <Property Name="segno" Type="Int32" Nullable="false" />
+          <Property Name="qta" Type="Int32" Nullable="false" />
+          <Property Name="id_ordine" Type="Int32" />
+          <Property Name="id_processo" Type="Int32" />
+          <NavigationProperty Name="prodotti" Relationship="Self.FK__movimenti__codic__276EDEB3" FromRole="movimenti" ToRole="prodotti" />
+        </EntityType>
+        <EntityType Name="ordini">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data_ordine" Type="DateTime" Nullable="false" />
+          <Property Name="stato_ordine" Type="Int32" />
+          <NavigationProperty Name="statiOrdine" Relationship="Self.FK__ordini__stato_or__2C3393D0" FromRole="ordini" ToRole="statiOrdine" />
+          <NavigationProperty Name="prodottiOrdinati" Relationship="Self.FK__prodottiO__id_or__2F10007B" FromRole="ordini" ToRole="prodottiOrdinati" />
+        </EntityType>
+        <EntityType Name="prodotti">
+          <Key>
+            <PropertyRef Name="codice" />
+          </Key>
+          <Property Name="codice" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descrizione" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="movimenti" Relationship="Self.FK__movimenti__codic__276EDEB3" FromRole="prodotti" ToRole="movimenti" />
+          <NavigationProperty Name="prodottiOrdinati" Relationship="Self.FK__prodottiO__codic__300424B4" FromRole="prodotti" ToRole="prodottiOrdinati" />
+        </EntityType>
+        <EntityType Name="prodottiOrdinati">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_ordine" Type="Int32" />
+          <Property Name="codice_prodotto" Type="Int32" />
+          <Property Name="qta" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ordini" Relationship="Self.FK__prodottiO__id_or__2F10007B" FromRole="prodottiOrdinati" ToRole="ordini" />
+          <NavigationProperty Name="prodotti" Relationship="Self.FK__prodottiO__codic__300424B4" FromRole="prodottiOrdinati" ToRole="prodotti" />
+        </EntityType>
+        <EntityType Name="statiOrdine">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ordini" Relationship="Self.FK__ordini__stato_or__2C3393D0" FromRole="statiOrdine" ToRole="ordini" />
+        </EntityType>
+        <Association Name="FK__movimenti__codic__276EDEB3">
+          <End Role="prodotti" Type="Self.prodotti" Multiplicity="0..1" />
+          <End Role="movimenti" Type="Self.movimenti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prodotti">
+              <PropertyRef Name="codice" />
+            </Principal>
+            <Dependent Role="movimenti">
+              <PropertyRef Name="codice_prodotto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ordini__stato_or__2C3393D0">
+          <End Role="statiOrdine" Type="Self.statiOrdine" Multiplicity="0..1" />
+          <End Role="ordini" Type="Self.ordini" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statiOrdine">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ordini">
+              <PropertyRef Name="stato_ordine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prodottiO__id_or__2F10007B">
+          <End Role="ordini" Type="Self.ordini" Multiplicity="0..1" />
+          <End Role="prodottiOrdinati" Type="Self.prodottiOrdinati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ordini">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prodottiOrdinati">
+              <PropertyRef Name="id_ordine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prodottiO__codic__300424B4">
+          <End Role="prodotti" Type="Self.prodotti" Multiplicity="0..1" />
+          <End Role="prodottiOrdinati" Type="Self.prodottiOrdinati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prodotti">
+              <PropertyRef Name="codice" />
+            </Principal>
+            <Dependent Role="prodottiOrdinati">
+              <PropertyRef Name="codice_prodotto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="logisticaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="carrello" EntityType="Self.carrello" />
+          <EntitySet Name="movimenti" EntityType="Self.movimenti" />
+          <EntitySet Name="ordini" EntityType="Self.ordini" />
+          <EntitySet Name="prodotti" EntityType="Self.prodotti" />
+          <EntitySet Name="prodottiOrdinati" EntityType="Self.prodottiOrdinati" />
+          <EntitySet Name="statiOrdine" EntityType="Self.statiOrdine" />
+          <AssociationSet Name="FK__movimenti__codic__276EDEB3" Association="Self.FK__movimenti__codic__276EDEB3">
+            <End Role="prodotti" EntitySet="prodotti" />
+            <End Role="movimenti" EntitySet="movimenti" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ordini__stato_or__2C3393D0" Association="Self.FK__ordini__stato_or__2C3393D0">
+            <End Role="statiOrdine" EntitySet="statiOrdine" />
+            <End Role="ordini" EntitySet="ordini" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prodottiO__id_or__2F10007B" Association="Self.FK__prodottiO__id_or__2F10007B">
+            <End Role="ordini" EntitySet="ordini" />
+            <End Role="prodottiOrdinati" EntitySet="prodottiOrdinati" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prodottiO__codic__300424B4" Association="Self.FK__prodottiO__codic__300424B4">
+            <End Role="prodotti" EntitySet="prodotti" />
+            <End Role="prodottiOrdinati" EntitySet="prodottiOrdinati" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="logisticaModelStoreContainer" CdmEntityContainer="logisticaEntities">
+          <EntitySetMapping Name="carrello">
+            <EntityTypeMapping TypeName="logisticaModel.carrello">
+              <MappingFragment StoreEntitySet="carrello">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codice_prodotto" ColumnName="codice_prodotto" />
+                <ScalarProperty Name="qta" ColumnName="qta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="movimenti">
+            <EntityTypeMapping TypeName="logisticaModel.movimenti">
+              <MappingFragment StoreEntitySet="movimenti">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codice_prodotto" ColumnName="codice_prodotto" />
+                <ScalarProperty Name="segno" ColumnName="segno" />
+                <ScalarProperty Name="qta" ColumnName="qta" />
+                <ScalarProperty Name="id_ordine" ColumnName="id_ordine" />
+                <ScalarProperty Name="id_processo" ColumnName="id_processo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ordini">
+            <EntityTypeMapping TypeName="logisticaModel.ordini">
+              <MappingFragment StoreEntitySet="ordini">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data_ordine" ColumnName="data_ordine" />
+                <ScalarProperty Name="stato_ordine" ColumnName="stato_ordine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prodotti">
+            <EntityTypeMapping TypeName="logisticaModel.prodotti">
+              <MappingFragment StoreEntitySet="prodotti">
+                <ScalarProperty Name="codice" ColumnName="codice" />
+                <ScalarProperty Name="descrizione" ColumnName="descrizione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prodottiOrdinati">
+            <EntityTypeMapping TypeName="logisticaModel.prodottiOrdinati">
+              <MappingFragment StoreEntitySet="prodottiOrdinati">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_ordine" ColumnName="id_ordine" />
+                <ScalarProperty Name="codice_prodotto" ColumnName="codice_prodotto" />
+                <ScalarProperty Name="qta" ColumnName="qta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="statiOrdine">
+            <EntityTypeMapping TypeName="logisticaModel.statiOrdine">
+              <MappingFragment StoreEntitySet="statiOrdine">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="stato" ColumnName="stato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
