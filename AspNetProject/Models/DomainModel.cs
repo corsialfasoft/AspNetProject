@@ -20,7 +20,20 @@ namespace AspNetProject.Models {
             }
 
             public Prodotto CercabyCode(int CodiceProdotto) {
-                throw new NotImplementedException();
+                Prodotto result = null;
+                using(var db = new logisticaEntities1()){
+                     var query = 
+                        from product in db.prodotti
+                        where product.codice == CodiceProdotto
+                        select product;
+                     List<prodotti> listaProdotti = query.ToList<prodotti>();
+                     if(listaProdotti.Count>0){
+                        result = new Prodotto();
+                        result.codice= listaProdotti[0].codice;
+                        result.Descrizione= listaProdotti[0].descrizione;
+                     }
+                }
+                return result;
             }
 
             public List<Prodotto> CercabyDescrizione(string DescrizioneProdotto) {
