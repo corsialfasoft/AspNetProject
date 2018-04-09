@@ -14,7 +14,8 @@ go
 create table carrello(
 	id int identity(1,1) not null primary key,
 	codice_prodotto int not null,
-	qta int not null
+	qta int not null,
+	codice_utente int
 );
 
 IF OBJECT_ID('prodotti', 'U') IS NOT NULL
