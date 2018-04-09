@@ -12,6 +12,8 @@ namespace AspNetProject
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class logisticaEntities1 : DbContext
     {
@@ -31,5 +33,22 @@ namespace AspNetProject
         public virtual DbSet<prodotti> prodotti { get; set; }
         public virtual DbSet<prodottiOrdinati> prodottiOrdinati { get; set; }
         public virtual DbSet<statiOrdine> statiOrdine { get; set; }
+    
+        public virtual int AddProdCarr(Nullable<int> codiceProdott, Nullable<int> quantitaRichiesta, Nullable<int> idUtente)
+        {
+            var codiceProdottParameter = codiceProdott.HasValue ?
+                new ObjectParameter("CodiceProdott", codiceProdott) :
+                new ObjectParameter("CodiceProdott", typeof(int));
+    
+            var quantitaRichiestaParameter = quantitaRichiesta.HasValue ?
+                new ObjectParameter("QuantitaRichiesta", quantitaRichiesta) :
+                new ObjectParameter("QuantitaRichiesta", typeof(int));
+    
+            var idUtenteParameter = idUtente.HasValue ?
+                new ObjectParameter("IdUtente", idUtente) :
+                new ObjectParameter("IdUtente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddProdCarr", codiceProdottParameter, quantitaRichiestaParameter, idUtenteParameter);
+        }
     }
 }
