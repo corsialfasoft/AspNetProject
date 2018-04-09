@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h1> Conferma Ordine </h1>
+@using(Html.BeginForm("ConfermaOrdini","Home",FormMethod.Post)) {
+    <div class="text-danger">
+        @ViewBag.ErrorMessage
+        @Html.ValidationSummary()
+    </div>
+    <div class="text-warning">
+        @ViewBag.Message
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Codice Articolo
+        </div>
+        <div class="col-md-8">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Descrizione
+        </div>
+        <div class="col-md-8">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Qnt
+        </div>
+        <div class="col-md-8">
+            
+        </div>
+    </div>
+}

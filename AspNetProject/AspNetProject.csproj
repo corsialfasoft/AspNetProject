@@ -185,6 +185,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\carrello.cshtml" />
+    <Content Include="Views\Home\RichiestaOrdini.cshtml" />
+    <Content Include="Views\Home\ConfermaOrdini.cshtml" />
+    <Content Include="Views\Home\DettaglioOrdine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
