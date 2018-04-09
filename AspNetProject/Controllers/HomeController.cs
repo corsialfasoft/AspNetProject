@@ -6,27 +6,9 @@ using System.Web.Mvc;
 
 namespace AspNetProject.Controllers {
     public class HomeController : Controller {
-        public ActionResult RichiestaOrdine() {
-            return View();
-        }
-
-        public ActionResult DettaglioOrdine() {
-            return View();
-        }
-
-        public ActionResult ConfermaOrdine() {
-            return View();
-        }
-
-        public ActionResult carrello() {
-            return View();
-        }
-
-    
         public ActionResult Index() {
             return View();
         }
-
 
         public ActionResult About() {
             ViewBag.Message = "Your application description page.";
@@ -36,6 +18,18 @@ namespace AspNetProject.Controllers {
 
         public ActionResult Contact() {
             ViewBag.Message = "Your contact page.";
+            return View();
+        }
+        public ActionResult RichiestaOrdini() {
+            return View();
+        }
+        public ActionResult carrello() {
+            return View();
+        }
+        public ActionResult ConfermaOrdini() {
+            return View();
+        }
+        public ActionResult DettaglioOrdine() {
             return View();
         }
     }
