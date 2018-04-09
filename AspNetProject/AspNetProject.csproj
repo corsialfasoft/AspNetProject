@@ -46,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -53,6 +59,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -142,18 +150,61 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="carrello.cs">
+      <DependentUpon>EdmLogistica.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="EdmLogistica.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EdmLogistica.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EdmLogistica.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EdmLogistica.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EdmLogistica.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EdmLogistica.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DomainModel.cs" />
     <Compile Include="Models\Prodotto.cs" />
+    <Compile Include="movimenti.cs">
+      <DependentUpon>EdmLogistica.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ordini.cs">
+      <DependentUpon>EdmLogistica.tt</DependentUpon>
+    </Compile>
+    <Compile Include="prodotti.cs">
+      <DependentUpon>EdmLogistica.tt</DependentUpon>
+    </Compile>
+    <Compile Include="prodottiOrdinati.cs">
+      <DependentUpon>EdmLogistica.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="statiOrdine.cs">
+      <DependentUpon>EdmLogistica.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="DataBaseCompleto.sql" />
+    <Content Include="EdmLogistica.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EdmLogistica.Context.cs</LastGenOutput>
+      <DependentUpon>EdmLogistica.edmx</DependentUpon>
+    </Content>
+    <Content Include="EdmLogistica.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EdmLogistica.edmx</DependentUpon>
+      <LastGenOutput>EdmLogistica.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -162,6 +213,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="EdmLogistica.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EdmLogistica.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EdmLogistica.edmx.diagram">
+      <DependentUpon>EdmLogistica.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
