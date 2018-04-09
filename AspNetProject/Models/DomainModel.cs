@@ -37,7 +37,17 @@ namespace AspNetProject.Models {
             }
 
             public List<Prodotto> CercabyDescrizione(string DescrizioneProdotto) {
-                throw new NotImplementedException();
+                List<Prodotto> result = null;
+                using (var db = new logisticaEntities1()){
+                    var query = from product in db.prodotti where product.descrizione == DescrizioneProdotto select product;
+                    List<prodotti> listaprodotti = query.ToList<prodotti>();
+                    if(listaprodotti.Count>0){
+                        foreach(prodotti product in listaprodotti) {
+                            result.Add(new Prodotto(product.codice, product.descrizione)); //nel caso si aggiunge anche Giacenza
+                        }
+                    }
+                    return result;
+                }
             }
 
             public void ConfermaOrdine(int IdUtente) {
