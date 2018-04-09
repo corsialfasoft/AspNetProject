@@ -30,8 +30,10 @@ namespace AspNetProject.Models {
             }
 
             public void SvuotaCarello(int IdUtente) {
-                throw new NotImplementedException();
-            }
+				using( var entities1 = new logisticaEntities1()){
+					entities1.Svuotacarrello(IdUtente);
+				}
+			}
         }
     }
 }

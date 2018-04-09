@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="logisticaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="logisticaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="carrello">
           <Key>
             <PropertyRef Name="id" />
@@ -104,6 +104,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Svuotacarrello" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUtente" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="logisticaModelStoreContainer">
           <EntitySet Name="carrello" EntityType="Self.carrello" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="movimenti" EntityType="Self.movimenti" Schema="dbo" store:Type="Tables" />
@@ -128,8 +131,7 @@
             <End Role="prodottiOrdinati" EntitySet="prodottiOrdinati" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="logisticaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -263,6 +265,9 @@
             <End Role="prodotti" EntitySet="prodotti" />
             <End Role="prodottiOrdinati" EntitySet="prodottiOrdinati" />
           </AssociationSet>
+          <FunctionImport Name="Svuotacarrello">
+          <Parameter Name="IdUtente" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -327,6 +332,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Svuotacarrello" FunctionName="logisticaModel.Store.Svuotacarrello" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

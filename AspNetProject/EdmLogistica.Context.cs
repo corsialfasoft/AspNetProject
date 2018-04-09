@@ -12,6 +12,8 @@ namespace AspNetProject
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class logisticaEntities1 : DbContext
     {
@@ -31,5 +33,14 @@ namespace AspNetProject
         public virtual DbSet<prodotti> prodotti { get; set; }
         public virtual DbSet<prodottiOrdinati> prodottiOrdinati { get; set; }
         public virtual DbSet<statiOrdine> statiOrdine { get; set; }
+    
+        public virtual int Svuotacarrello(Nullable<int> idUtente)
+        {
+            var idUtenteParameter = idUtente.HasValue ?
+                new ObjectParameter("IdUtente", idUtente) :
+                new ObjectParameter("IdUtente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Svuotacarrello", idUtenteParameter);
+        }
     }
 }
