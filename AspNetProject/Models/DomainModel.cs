@@ -8,13 +8,15 @@ namespace AspNetProject.Models {
         public interface IGestioneProdotti {
             Prodotto CercabyCode(int CodiceProdotto); //EDO
             List<Prodotto> CercabyDescrizione(string DescrizioneProdotto); //LUCA
-            Prodotto AggiungiProdottoCarrello(int CodiceProdotto, int QuantitaRichiesta, int IdUtente); //ALESSIO
+            void AggiungiProdottoCarrello(int CodiceProdotto, int QuantitaRichiesta, int IdUtente); //ALESSIO
             void SvuotaCarello(int IdUtente); //MATTEO
             void ConfermaOrdine(int IdUtente);
         }
         public class DomainLogistica : IGestioneProdotti {
-            public Prodotto AggiungiProdottoCarrello(int CodiceProdotto, int QuantitaRichiesta, int IdUtente) {
-                throw new NotImplementedException();
+            public void AggiungiProdottoCarrello(int CodiceProdotto, int QuantitaRichiesta, int IdUtente) {
+                using(var db = new logisticaEntities1()){
+                     db.AddProdCarr(CodiceProdotto,QuantitaRichiesta, IdUtente);
+                }
             }
 
             public Prodotto CercabyCode(int CodiceProdotto) {
